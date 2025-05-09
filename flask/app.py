@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, listaUsuarios
 app = Flask(__name__)
 
 #criar variável global (lista de usuários)
-convidados = ["Gracilene"]
+listaUsuarios = ["Gracilene"]
 
 #rota padrão (ir para página principal)
 @app.route("/")
@@ -13,8 +13,8 @@ def index():
     return render_template("index.html")
 
 #rota para direcionar para página de cadastro
-@app.route("/registre", methods=["GET", "POST"])
-def registre():
+@app.route("/paginaCadastro")
+def paginaCadastro():
     return render_template("cadastro.html")
 
 #rota para direcionar para página de cadastro
@@ -37,7 +37,7 @@ def cadastrar():
 @app.route("/verificarUsuario", methods=['POST'])
 def verificar():
     nome = request.form.get("nomeUsuario")
-    if(nome in convidados):
+    if(nome in listaUsuarios):
         mensagem="você está convidado"
         return render_template("resultado.html", mensagem=mensagem)
     else:
@@ -46,7 +46,7 @@ def verificar():
     
 @app.route("/listarConvidados")
 def listar():
-    return render_template("listar.html", convidados=convidados)
+    return render_template("listar.html", convidados=listaUsuarios)
 
 #executar o servidor Flask
 app.run(debug=True)
